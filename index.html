@@ -86,11 +86,13 @@
         }
 
         /* Modal Styles */
-        #custom-modal-overlay {
+        #custom-modal-overlay, #support-modal-overlay, #legal-modal-overlay {
             transition: opacity 0.4s ease;
         }
-        #custom-modal {
+        #custom-modal, #support-modal {
             transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -100,12 +102,12 @@
     <div id="toast-container" class="fixed bottom-8 right-8 z-[600] flex flex-col gap-4"></div>
 
     <!-- Custom Design Modal -->
-    <div id="custom-modal-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-md z-[250] hidden flex items-center justify-center p-6">
-        <div id="custom-modal" class="bg-white w-full max-w-xl rounded-[32px] p-10 shadow-2xl opacity-0 scale-95">
+    <div id="custom-modal-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-md z-[250] hidden flex items-center justify-center p-4">
+        <div id="custom-modal" class="bg-white w-full max-w-xl rounded-[32px] p-6 md:p-10 shadow-2xl opacity-0 scale-95">
             <div class="flex justify-between items-start mb-8">
                 <div>
-                    <h2 class="text-3xl font-bold tracking-tight">Your Custom Vision.</h2>
-                    <p class="text-gray-400 mt-2">Describe exactly what you want us to create.</p>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Your Custom Vision.</h2>
+                    <p class="text-gray-400 mt-2 text-sm">Describe exactly what you want us to create.</p>
                 </div>
                 <button onclick="toggleCustomModal(false)" class="opacity-40 hover:opacity-100 transition-opacity">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -178,6 +180,14 @@
                 <span id="cart-total" class="font-bold">$0.00</span>
             </div>
             <button id="checkout-btn" onclick="handleCheckout()" class="w-full bg-black text-white py-4 rounded-2xl font-semibold hover:bg-gray-800 transition-colors disabled:bg-gray-200" disabled>Checkout</button>
+            <div class="mt-6 flex flex-col items-center">
+                <p class="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-2">Secure Checkout via</p>
+                <div class="flex items-center space-x-2 opacity-30 grayscale">
+                    <span class="text-[10px] font-black italic tracking-tighter">Razorpay</span>
+                    <div class="w-[1px] h-3 bg-gray-300"></div>
+                    <span class="text-[10px] font-bold">Trusted Gateways</span>
+                </div>
+            </div>
         </div>
     </aside>
 
@@ -270,16 +280,18 @@
 
     <!-- Catalog Modal -->
     <div id="catalog-modal-overlay" class="fixed inset-0 bg-white z-[300] hidden flex-col overflow-y-auto">
-        <nav class="sticky top-0 w-full glass h-16 flex items-center px-6 justify-between z-10">
-            <h2 class="text-xl font-bold tracking-tighter">Poster Catalog.</h2>
-            <div class="flex items-center space-x-8">
-                <button onclick="toggleCart(true)" class="relative opacity-40 hover:opacity-100 transition-opacity cart-btn">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                    <span class="cart-badge absolute -top-2 -right-2 bg-black text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full hidden">0</span>
-                </button>
-                <button onclick="toggleCatalogModal(false)" class="opacity-40 hover:opacity-100 transition-opacity">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+        <nav class="sticky top-0 w-full glass h-14 flex items-center z-10">
+            <div class="max-w-screen-xl mx-auto w-full px-6 flex justify-between items-center">
+                <h2 class="text-xl font-bold tracking-tighter">Poster Catalog.</h2>
+                <div class="flex items-center space-x-8">
+                    <button onclick="toggleCart(true)" class="relative opacity-40 hover:opacity-100 transition-opacity cart-btn">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span class="cart-badge absolute -top-2 -right-2 bg-black text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full hidden">0</span>
+                    </button>
+                    <button onclick="toggleCatalogModal(false)" class="opacity-40 hover:opacity-100 transition-opacity">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
             </div>
         </nav>
         
@@ -349,8 +361,14 @@
             <a href="https://instagram.com/abstract.co.in" target="_blank" class="bg-black text-white px-12 py-4 rounded-full font-bold hover:scale-105 transition-transform flex items-center justify-center">Join the Inner Circle</a>
             <button onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})" class="border border-gray-300 px-12 py-4 rounded-full font-bold hover:bg-white transition-all">View Gallery</button>
         </div>
-        <div class="max-w-screen-xl mx-auto border-t border-gray-200 pt-12 flex flex-col md:flex-row justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
-            <p>&copy; 2026 Abstract.</p>
+        <div class="max-w-screen-xl mx-auto border-t border-gray-200 pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+            <div class="flex flex-col md:flex-row items-center md:space-x-8 space-y-4 md:space-y-0">
+                <p>&copy; 2026 Abstract.</p>
+                <div class="flex items-center space-x-2 opacity-50 grayscale scale-75 md:scale-100">
+                    <span>Secured by</span>
+                    <span class="font-black italic tracking-tighter text-gray-600">Razorpay</span>
+                </div>
+            </div>
             <div class="flex space-x-8 mt-6 md:mt-0">
                 <button onclick="showLegal('Privacy Policy')" class="hover:text-black">Privacy</button>
                 <button onclick="showLegal('Terms of Service')" class="hover:text-black">Terms</button>
