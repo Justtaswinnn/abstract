@@ -99,7 +99,7 @@
 <body class="antialiased">
 
     <!-- Toast Notifications Container -->
-    <div id="toast-container" class="fixed bottom-8 right-8 z-[600] flex flex-col gap-4"></div>
+    <div id="toast-container" class="fixed bottom-8 left-0 right-0 md:left-auto md:right-8 z-[600] flex flex-col items-center md:items-end gap-4 pointer-events-none px-6"></div>
 
     <!-- Custom Design Modal -->
     <div id="custom-modal-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-md z-[250] hidden flex items-center justify-center p-4">
@@ -427,6 +427,19 @@
                     Our curators are available 10am - 8pm IST.<br>
                     Average response time: 2 hours.
                 </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Legal Modal -->
+    <div id="legal-modal-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-md z-[600] hidden flex items-center justify-center p-6">
+        <div class="bg-white w-full max-w-2xl rounded-[32px] p-6 md:p-10 shadow-2xl relative max-h-[80vh] overflow-y-auto">
+            <button onclick="toggleLegalModal(false)" class="absolute top-8 right-8 opacity-40 hover:opacity-100 transition-opacity">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 id="legal-title" class="text-3xl font-bold tracking-tight mb-8"></h2>
+            <div id="legal-content" class="text-gray-500 leading-relaxed space-y-4">
+                <!-- Content will be injected -->
             </div>
         </div>
     </div>
